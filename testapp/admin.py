@@ -1,10 +1,8 @@
 from django.contrib import admin
-from testapp.models import *
 
 # Register your models here.
-admin.site.register(GameCategory)
+from .models import *
 
-admin.site.register(Game)
-admin.site.register(Player)
-admin.site.register(PlayerScore)
-
+admin.site.register(employes)
+admin.site.register(company)
+admin.site.register(projects)

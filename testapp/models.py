@@ -1,59 +1,27 @@
 from django.db import models
 
 # Create your models here.
-class GameCategory(models.Model):
-    name = models.CharField(max_length=200)
+from django.db import models
 
+# Create app models here.
 
-    class Meta:
-        ordering = ('name',)
+class employes(models.Model):
+    name = models.CharField(max_length=50)
     def __str__(self):
         return self.name
 
-
-class Game(models.Model):
-    
-    created = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(max_length=144)
-    game_category = models.ForeignKey(GameCategory,related_name='games',on_delete=models.CASCADE)
-    released_date = models.DateTimeField()
-    played = models.BooleanField(default=False)
-
-    
-    class Meta:
-        ordering = ('name',)
-
+class company(models.Model):
+    name = models.CharField(max_length=50)
+    emp_name = models.ForeignKey(employes, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.name
 
-
-
-
-class Player(models.Model):
-    MALE = "M"
-    FEMALE = "F"
-    GENDER_CHOICES = ((MALE,'Male'), (FEMALE, 'Female'),)
-    created = models.DateTimeField(auto_now_add=True)
-
-    name = models.CharField(max_length=144)
-
-    gender = models.CharField(max_length=2, choices=GENDER_CHOICES, default=MALE)
-
-    class Meta:
-        ordering = ('name',)
+class projects(models.Model):
+    name = models.CharField(max_length=100)
+    emp_name = models.ForeignKey(employes, on_delete=models.CASCADE)
+    comp_name = models.ForeignKey(company, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
-
-
-
-class PlayerScore(models.Model):
-    
-    player = models.ForeignKey(Player, related_name='scores',on_delete=models.CASCADE)
-    game = models.ForeignKey(Game,on_delete=models.CASCADE)
-    score = models.IntegerField()
-    score_date = models.DateTimeField()
-
-    class Meta:
-        
-        ordering = ('-score',)
